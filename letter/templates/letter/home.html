@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>WhisperNote</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            background: #e8e2d8;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 40px 20px;
+            font-family: Georgia, "Times New Roman", serif;
+        }
+
+        .paper {
+            width: 100%;
+            max-width: 750px;
+            min-height: 850px;
+            background: #fffdf7;
+            padding: 70px 80px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .date {
+            text-align: right;
+            color: #777;
+            font-size: 15px;
+            margin-bottom: 60px;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 34px;
+            font-weight: normal;
+            margin-bottom: 55px;
+        }
+
+        .letter {
+            font-size: 19px;
+            line-height: 2;
+            color: #292929;
+        }
+
+        .letter p {
+            margin-bottom: 25px;
+        }
+
+        .signature {
+            margin-top: 70px;
+            text-align: right;
+            font-size: 18px;
+            line-height: 1.7;
+        }
+
+        @media (max-width: 600px) {
+            .paper {
+                padding: 40px 30px;
+                min-height: 700px;
+            }
+
+            h1 {
+                font-size: 28px;
+            }
+
+            .letter {
+                font-size: 17px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <main class="paper">
+
+        <div class="date">
+            September 8, 2026
+        </div>
+
+        <h1>A Little Note</h1>
+
+        <section class="letter">
+
+            <p>Dear Friend,</p>
+
+            <p>
+                Some thoughts don't need to be spoken aloud.
+                They only need a quiet place to exist.
+            </p>
+
+            <p>
+                This is a small corner for those thoughts —
+                a simple note, a memory, a message, or perhaps
+                something you have always wanted to say.
+            </p>
+
+            <p>
+                Welcome to <strong>WhisperNote</strong>.
+            </p>
+
+            <p>
+                Write what matters. Keep what you cherish.
+            </p>
+
+        </section>
+
+        <div class="signature">
+            With warm regards,<br>
+            <strong>Muza</strong>
+        </div>
+
+    </main>
+
+</body>
+</html>
