@@ -1,428 +1,149 @@
+{% load static %}
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>WhisperNote</title>
 
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
 
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 40px 20px;
-
-            font-family: "Inter", sans-serif;
-
-            background:
-                radial-gradient(circle at 15% 20%, rgba(255,255,255,.8), transparent 30%),
-                radial-gradient(circle at 85% 80%, rgba(205,190,165,.35), transparent 35%),
-                linear-gradient(135deg, #d8d0c3, #eee9df, #d5cbbb);
-
-            overflow-x: hidden;
-        }
-
-        /* Ambient background circles */
-        body::before,
-        body::after {
-            content: "";
-            position: fixed;
-            border-radius: 50%;
-            filter: blur(2px);
-            pointer-events: none;
-            z-index: 0;
-        }
-
-        body::before {
-            width: 300px;
-            height: 300px;
-            background: rgba(255,255,255,.25);
-            top: -100px;
-            left: -80px;
-        }
-
-        body::after {
-            width: 350px;
-            height: 350px;
-            background: rgba(170,150,120,.15);
-            bottom: -150px;
-            right: -100px;
-        }
-
-        /* Main paper */
-        .paper {
-            position: relative;
-            z-index: 1;
-
-            width: 100%;
-            max-width: 760px;
-            min-height: 850px;
-
-            padding: 70px 85px;
-
-            background:
-                linear-gradient(
-                    rgba(255,255,255,.72),
-                    rgba(255,253,247,.96)
-                );
-
-            border: 1px solid rgba(255,255,255,.8);
-            border-radius: 4px;
-
-            box-shadow:
-                0 35px 80px rgba(55,45,35,.18),
-                0 8px 25px rgba(55,45,35,.08),
-                inset 0 0 50px rgba(170,150,120,.08);
-
-            animation: paperOpen 1s cubic-bezier(.22,1,.36,1) forwards;
-
-            transform: translateY(120px) scale(.96);
-            opacity: 0;
-        }
-
-        /* Paper edge */
-        .paper::before {
-            content: "";
-            position: absolute;
-            inset: 12px;
-
-            border: 1px solid rgba(120,100,75,.12);
-            pointer-events: none;
-        }
-
-        /* Bottom popup animation */
-        @keyframes paperOpen {
-            0% {
-                opacity: 0;
-                transform: translateY(120px) scale(.96);
-            }
-
-            60% {
-                opacity: 1;
-                transform: translateY(-8px) scale(1.005);
-            }
-
-            100% {
-                opacity: 1;
-                transform: translateY(0) scale(1);
-            }
-        }
-
-        /* Top decorative line */
-        .top-line {
-            width: 55px;
-            height: 2px;
-            background: #8c7a64;
-            margin: 0 auto 22px;
-
-            animation: fadeDown 1s .5s both;
-        }
-
-        .date {
-            text-align: right;
-
-            color: #8c857b;
-
-            font-size: 13px;
-            letter-spacing: 1.5px;
-
-            margin-bottom: 50px;
-
-            animation: fadeUp .8s .35s both;
-        }
-
-        h1 {
-            text-align: center;
-
-            font-family: "Cormorant Garamond", Georgia, serif;
-
-            font-size: clamp(42px, 6vw, 58px);
-            font-weight: 500;
-
-            color: #29251f;
-
-            letter-spacing: 1px;
-
-            margin-bottom: 12px;
-
-            animation: fadeUp .8s .45s both;
-        }
-
-        .subtitle {
-            text-align: center;
-
-            color: #999084;
-
-            font-size: 12px;
-            letter-spacing: 4px;
-            text-transform: uppercase;
-
-            margin-bottom: 65px;
-
-            animation: fadeUp .8s .55s both;
-        }
-
-        .letter {
-            max-width: 580px;
-            margin: auto;
-
-            font-family: "Cormorant Garamond", Georgia, serif;
-
-            font-size: 21px;
-            line-height: 1.9;
-
-            color: #39342d;
-
-            animation: fadeUp .9s .65s both;
-        }
-
-        .letter p {
-            margin-bottom: 27px;
-        }
-
-        .greeting {
-            font-weight: 600;
-            color: #29251f;
-        }
-
-        .highlight {
-            position: relative;
-
-            font-weight: 600;
-            color: #5e5140;
-        }
-
-        .highlight::after {
-            content: "";
-
-            position: absolute;
-            left: 0;
-            right: 0;
-            bottom: -2px;
-
-            height: 1px;
-
-            background: #a99a84;
-
-            transform: scaleX(0);
-            transform-origin: left;
-
-            transition: transform .4s ease;
-        }
-
-        .highlight:hover::after {
-            transform: scaleX(1);
-        }
-
-        /* Quote decoration */
-        .quote {
-            text-align: center;
-
-            font-family: "Cormorant Garamond", serif;
-
-            font-size: 34px;
-
-            color: #a49682;
-
-            margin: 35px 0;
-
-            opacity: .65;
-        }
-
-        .signature {
-            margin-top: 70px;
-
-            text-align: right;
-
-            font-family: "Cormorant Garamond", Georgia, serif;
-
-            font-size: 20px;
-            line-height: 1.6;
-
-            color: #62594e;
-
-            animation: fadeUp .8s .8s both;
-        }
-
-        .signature strong {
-            font-size: 25px;
-            color: #29251f;
-            font-weight: 600;
-        }
-
-        /* Bottom decorative mark */
-        .bottom-mark {
-            width: 35px;
-            height: 1px;
-
-            background: #9b8d79;
-
-            margin: 55px auto 0;
-
-            opacity: .5;
-        }
-
-        @keyframes fadeUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes fadeDown {
-            from {
-                opacity: 0;
-                transform: translateY(-15px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* Mobile */
-        @media (max-width: 600px) {
-
-            body {
-                padding: 18px 12px;
-                align-items: flex-start;
-            }
-
-            .paper {
-                min-height: auto;
-                margin: 15px 0;
-
-                padding: 45px 28px 55px;
-
-                border-radius: 3px;
-            }
-
-            .paper::before {
-                inset: 8px;
-            }
-
-            .date {
-                margin-bottom: 38px;
-                font-size: 11px;
-            }
-
-            h1 {
-                font-size: 42px;
-            }
-
-            .subtitle {
-                font-size: 9px;
-                letter-spacing: 3px;
-                margin-bottom: 45px;
-            }
-
-            .letter {
-                font-size: 19px;
-                line-height: 1.8;
-            }
-
-            .letter p {
-                margin-bottom: 22px;
-            }
-
-            .signature {
-                margin-top: 50px;
-            }
-        }
-
-        /* Reduced motion accessibility */
-        @media (prefers-reduced-motion: reduce) {
-            .paper,
-            .top-line,
-            h1,
-            .subtitle,
-            .letter,
-            .signature {
-                animation: none;
-                opacity: 1;
-                transform: none;
-            }
-        }
-    </style>
+    <!-- External CSS -->
+    <link rel="stylesheet" href="{% static 'css/whispernote.css' %}">
 </head>
 
 <body>
 
+    <!-- Ambient background -->
+    <div class="ambient ambient-1"></div>
+    <div class="ambient ambient-2"></div>
+
+    <!-- Floating flowers -->
+    <div class="flower flower-1">✿</div>
+    <div class="flower flower-2">✿</div>
+    <div class="flower flower-3">❀</div>
+    <div class="flower flower-4">✿</div>
+    <div class="flower flower-5">❀</div>
+    <div class="flower flower-6">✿</div>
+
+    <!-- Floating petals -->
+    <div class="petal petal-1"></div>
+    <div class="petal petal-2"></div>
+    <div class="petal petal-3"></div>
+    <div class="petal petal-4"></div>
+    <div class="petal petal-5"></div>
+    <div class="petal petal-6"></div>
+    <div class="petal petal-7"></div>
+
+    <!-- Main paper card container -->
     <main class="paper">
 
-        <div class="top-line"></div>
+        <!-- Decorative floral corners -->
+        <div class="corner corner-top-left">❀</div>
+        <div class="corner corner-top-right">✿</div>
+        <div class="corner corner-bottom-left">✿</div>
+        <div class="corner corner-bottom-right">❀</div>
 
-        <div class="date">
-            September 8, 2026
-        </div>
+        <div class="paper-content">
 
-        <h1>A Little Note</h1>
 
-        <div class="subtitle">
-            A place for quiet thoughts
-        </div>
+<div class="top-decoration">
+    <span></span>
+    <i>✦</i>
+    <span></span>
+</div>
 
-        <section class="letter">
+<div class="date">
+    September 11, 2026
+</div>
 
-            <p class="greeting">
-                Dear Friend,
-            </p>
+<h1>Grill Night 🔥</h1>
 
-            <p>
-                Some thoughts don't need to be spoken aloud.
-                They only need a quiet place to exist.
-            </p>
+<div class="subtitle">
+    You’ve been personally summoned. No excuses. 😉
+</div>
 
-            <div class="quote">
-                “
-            </div>
+<div class="ornament">
+    <span></span>
+    <b>❀</b>
+    <span></span>
+</div>
 
-            <p>
-                This is a small corner for those thoughts —
-                a simple note, a memory, a message, or perhaps
-                something you have always wanted to say.
-            </p>
+<section class="letter">
 
-            <p>
-                Welcome to
-                <span class="highlight">WhisperNote</span>.
-            </p>
+    <p class="greeting">
+        Hey, Trouble 😏❤️
+    </p>
 
-            <p>
-                Write what matters.
-                Keep what you cherish.
-            </p>
+    <p>
+        Guess what?
+        Your favourite <span class="highlight">Hostel Secretary</span>
+        has officially decided that you are required to attend
+        Grill Night tonight.
+    </p>
 
-        </section>
+    <p>
+        And before you start making excuses...
+        <strong>yes, this invitation is specifically for you.</strong> 👀
+    </p>
 
-        <div class="signature">
-            With warm regards,<br>
-            <strong>Muza</strong>
-        </div>
+    <div class="quote">
+        <span>“</span>
+    </div>
 
-        <div class="bottom-mark"></div>
+    <p>
+        <strong>6:00 PM. Don't be late.</strong>
+        I already know you'll take forever to get ready anyway. 🙄😂
+    </p>
+
+    <p>
+        There'll be grilled food, good vibes and plenty of people...
+        but somehow I only seem interested in seeing
+        <span class="highlight">one person.</span> 🤭
+    </p>
+
+    <p>
+        <strong>📅 Today — September 11</strong><br>
+        <strong>⏰ 6:00 PM</strong><br>
+        <strong>🔥 Grill Night</strong><br>
+        <strong>😌 Attendance: Mandatory for you</strong>
+    </p>
+
+    <p class="closing-line">
+        Come for the food...<br>
+        Stay because you missed me. 😉❤️
+    </p>
+
+</section>
+
+<div class="signature">
+    Signed with unnecessary authority,
+    <br>
+    <strong>Muza MK ❤️</strong>
+    <br>
+    <small>
+        Hostel Secretary<br>
+        Your favourite one, obviously. 😌
+    </small>
+</div>
+
+<div class="bottom-decoration">
+    <span></span>
+    <i>✿</i>
+    <span></span>
+</div>
+
+
+</div>
 
     </main>
 
+    <!-- External JS -->
+    <script src="{% static 'js/whispernote.js' %}"></script>
+
 </body>
 </html>
-
